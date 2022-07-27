@@ -2,9 +2,7 @@ FROM python:3.9
 # Adding the requirements to the container
 ADD requirements.txt /
 # Copy app content
-# ADD app /app
-# Copy your models
-# ADD models /models
+ADD app /app
 # Change to / as working dir
 WORKDIR /
 # Update container software
@@ -32,4 +30,4 @@ ENV PORT=8080
 EXPOSE $PORT
 
 # Start the HTTP server
-CMD /venv/bin/uvicorn main:app --host 0.0.0.0 --port $PORT
+CMD /venv/bin/uvicorn app.main:app --host 0.0.0.0 --port $PORT
