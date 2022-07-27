@@ -91,7 +91,7 @@ app.add_middleware(
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
-    print(datetime.now(tz=ZoneInfo("Europe/Nicosia")), test_results)
+    print(test_results.test_a_1)
 
 
 @app.post("/post_test_results/")
