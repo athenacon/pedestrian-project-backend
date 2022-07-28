@@ -88,7 +88,7 @@ app.add_middleware(
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
-    print(test_results.test_a_1)
+    print("test A")
     
 @app.get("/")
 async def root():
