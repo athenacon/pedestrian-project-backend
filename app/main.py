@@ -105,13 +105,17 @@ async def mock_post_test_results(test_results: TestResults):
     with res_file_path.open("w+") as f:
         json.dump(test_results.json(), fp=f)
         
-    
+  
+
 @app.get("/")
 async def root():
     res_dir = Path(Path.cwd(), "submitted")
     res_dir.mkdir(parents=True, exist_ok=True)
-    submitted = list(res_dir.glob("*.json"))
-    return {"message": "Pedestrian project backend :)", "submitted": submitted}
+    all_res = []
+    for submitted in res_dir.glob("*.json"):
+        with submitted.open("r") as f:
+            all_res.append(json.load(f))
+    return {"message": "Pedestrian project backend :)", "submitted": all_res}
 
 if __name__ == "__main__":
     uvicorn.run("main:app")
