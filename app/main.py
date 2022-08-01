@@ -91,7 +91,7 @@ app.add_middleware(
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
-    submit_time = datetime.now()
+    submit_time = datetime.datetime.now()
 
     print(submit_time, "submit on mock_post_test_results!")
 
