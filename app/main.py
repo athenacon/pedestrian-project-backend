@@ -1,5 +1,7 @@
 import pymysql
 import uvicorn as uvicorn
+import json
+from pathlib import Path
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
@@ -85,29 +87,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    // handle OPTIONS method
-    if ('OPTIONS' == req.method) {
-        return res.sendStatus(200);
-    } else {
-        next();
-    }
-});
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
-    print("test A")
-    return {"message": "Moch post test results"}
+    submit_time = datetime.now(tz=ZoneInfo("Europe/Nicosia"))
 
+    print(submit_time, "submit on mock_post_test_results!")
+
+    res_file_path = Path(
+        Path.cwd(),
+        "submitted",
+        f"test_res_{submit_time.strftime('%Y%m%d_%H%M%S')}.json",
+    )
+    res_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with res_file_path.open("w+") as f:
+        json.dump(test_results.json(), fp=f)
+        
     
 @app.get("/")
 async def root():
-    return {"message": "Pedestrian project backend :)"}
-
+    res_dir = Path(Path.cwd(), "submitted")
+    res_dir.mkdir(parents=True, exist_ok=True)
+    submitted = list(res_dir.glob("*.json"))
+    return {"message": "Pedestrian project backend :)", "submitted": submitted}
 
 if __name__ == "__main__":
     uvicorn.run("main:app")
