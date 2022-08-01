@@ -105,10 +105,17 @@ async def mock_post_test_results(test_results: TestResults):
     with res_file_path.open("w+") as f:
         json.dump(test_results.json(), fp=f)
         
-  
-
+ 
 @app.get("/")
 async def root():
+    res_dir = Path(Path.cwd(), "submitted")
+    res_dir.mkdir(parents=True, exist_ok=True)
+    submitted = list(res_dir.glob("*.json"))
+    return {"message": "Pedestrian project backend :)", "submitted": submitted}
+
+
+@app.get("/download_all_submitted/")
+async def download_all_submitted():
     res_dir = Path(Path.cwd(), "submitted")
     res_dir.mkdir(parents=True, exist_ok=True)
     all_res = []
