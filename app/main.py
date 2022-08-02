@@ -113,7 +113,7 @@ async def mock_post_test_results(test_results: TestResults):
         f.write(test_results.json(indent=2))
 
 @app.post("/post_quest_res/")
-async def post_quest_res(test_results: TestResults, questionnaire_results: Questionnaire):
+async def post_quest_res(questionnaire_results: Questionnaire):
     submit_time = datetime.datetime.now(tz=ZoneInfo("Europe/Nicosia"))
 
     print(submit_time, "submit on mock_post_test_results!")
@@ -126,9 +126,7 @@ async def post_quest_res(test_results: TestResults, questionnaire_results: Quest
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
         
     res_dir = Path(Path.cwd(), "submitted")
-    number_of_files = len(list(res_dir.glob("*.json")))
-    test_key_questionnaire.test_key = number_of_files
-
+    
     with res_file_path.open("w") as f:
         f.write(questionnaire_results.json(indent=2))
 
