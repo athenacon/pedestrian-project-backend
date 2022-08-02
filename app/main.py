@@ -102,11 +102,11 @@ async def mock_post_test_results(test_results: TestResults):
         f"test_res_{submit_time.strftime('%Y%m%d_%H%M%S')}.json",
     )
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
-
-    with res_file_path.open("w+") as f:
-        json.dump(test_results.json(), fp=f)
         
- 
+    with res_file_path.open("w") as f:
+        f.write(test_results.json(indent=2))
+        
+        
 @app.get("/")
 async def root():
     res_dir = Path(Path.cwd(), "submitted")
