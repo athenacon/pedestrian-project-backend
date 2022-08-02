@@ -11,6 +11,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 class TestResults(BaseModel):
     test_name: str
+    test_key: int = 0
 
     test_a_1: str = None
     test_a_2: str = None
@@ -22,7 +23,7 @@ class TestResults(BaseModel):
     test_a_8: str = None
     test_a_9: str = None
     test_a_10: str = None
-
+ 
     test_a_1_reaction_time: float = None
     test_a_2_reaction_time: float = None
     test_a_3_reaction_time: float = None
@@ -92,6 +93,7 @@ app.add_middleware(
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
+    test_results.test_key = test_results.test_key + 1
     submit_time = datetime.datetime.now(tz=ZoneInfo("Europe/Nicosia"))
 
     print(submit_time, "submit on mock_post_test_results!")
