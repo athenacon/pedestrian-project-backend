@@ -109,7 +109,6 @@ async def mock_post_test_results(test_results: TestResults):
     number_of_files = len(list(res_dir.glob("*.json")))
     
     with res_file_path.open("w") as f:
-        f.write(str(number_of_files))
         f.write(test_results.json(indent=2))
 
 
