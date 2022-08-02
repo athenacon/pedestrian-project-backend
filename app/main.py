@@ -146,8 +146,10 @@ async def download_all_submitted():
     res_dir.mkdir(parents=True, exist_ok=True)
     all_res = []
     for submitted in res_dir.glob("*.json"):
-        with submitted.open("r") as f:
-            all_res.append(json.load(f))
+        with submitted.open("r") as f: {
+            all_res.append(json.load(f),'\n')
+             
+            
     return {"message": "Pedestrian project backend :)", "submitted": all_res}
 
 if __name__ == "__main__":
