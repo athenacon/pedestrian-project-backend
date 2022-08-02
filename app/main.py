@@ -11,7 +11,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 class TestResults(BaseModel):
     test_name: str
-    test_key: int = 0
+    test_key: int = None
 
     test_a_1: str = None
     test_a_2: str = None
@@ -93,7 +93,6 @@ app.add_middleware(
 
 @app.post("/mock_post_test_results/")
 async def mock_post_test_results(test_results: TestResults):
-    test_results.test_key = test_results.test_key + 1
     submit_time = datetime.datetime.now(tz=ZoneInfo("Europe/Nicosia"))
 
     print(submit_time, "submit on mock_post_test_results!")
@@ -107,7 +106,8 @@ async def mock_post_test_results(test_results: TestResults):
         
     res_dir = Path(Path.cwd(), "submitted")
     number_of_files = len(list(res_dir.glob("*.json")))
-    
+    test_results.test_key = number_of_files
+
     with res_file_path.open("w") as f:
         f.write(test_results.json(indent=2))
 
