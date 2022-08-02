@@ -121,7 +121,7 @@ async def post_quest_res(test_results: TestResults, questionnaire_results: Quest
     res_file_path = Path(
         Path.cwd(),
         "submitted",
-        f"test_res_{submit_time.strftime('%Y%m%d_%H%M%S')}.json",
+        f"quest_res_{submit_time.strftime('%Y%m%d_%H%M%S')}.json",
     )
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
         
