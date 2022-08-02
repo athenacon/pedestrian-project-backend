@@ -11,7 +11,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 class TestResults(BaseModel):
     test_name: str
-    test_key: int = None
+    test_key: float = None
 
     test_a_1: str = None
     test_a_2: str = None
