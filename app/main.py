@@ -126,7 +126,7 @@ async def post_quest_res(questionnaire_results: Questionnaire):
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
         
     res_dir = Path(Path.cwd(), "submitted")
-    number_of_files = len(list(res_dir.glob("*.json"))) -1
+    number_of_files = (len(list(res_dir.glob("*.json"))) -1 ) / 2
     questionnaire_results.test_key_questionnaire = number_of_files
     
     with res_file_path.open("w") as f:
