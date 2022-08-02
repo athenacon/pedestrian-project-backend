@@ -103,9 +103,13 @@ async def mock_post_test_results(test_results: TestResults):
     )
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
         
+    res_dir = Path(Path.cwd(), "submitted")
+    number_of_files = len(list(res_dir.glob("*.json")))
+    
     with res_file_path.open("w") as f:
         f.write(test_results.json(indent=2))
         
+
         
 @app.get("/")
 async def root():
