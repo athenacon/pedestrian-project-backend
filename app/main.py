@@ -107,7 +107,7 @@ async def mock_post_test_results(test_results: TestResults):
         
     res_dir = Path(Path.cwd(), "submitted")
     number_of_files = len(list(res_dir.glob("*.json")))
-    test_results.test_key = number_of_files
+    test_results.test_key = number_of_files/2
 
     with res_file_path.open("w") as f:
         f.write(test_results.json(indent=2))
@@ -126,6 +126,8 @@ async def post_quest_res(questionnaire_results: Questionnaire):
     res_file_path.parent.mkdir(parents=True, exist_ok=True)
         
     res_dir = Path(Path.cwd(), "submitted")
+    number_of_files = len(list(res_dir.glob("*.json"))) -1
+    questionnaire_results.test_key_questionnaire = number_of_files
     
     with res_file_path.open("w") as f:
         f.write(questionnaire_results.json(indent=2))
