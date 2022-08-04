@@ -148,7 +148,7 @@ async def download_all_submitted():
     for submitted in res_dir.glob("*.json"):
         with submitted.open("r") as f:  
             all_res.append(json.load(f))
-            all_res.append('\n')    
+             
          
     return {"message": "Pedestrian project backend :)", "submitted": all_res}
 
